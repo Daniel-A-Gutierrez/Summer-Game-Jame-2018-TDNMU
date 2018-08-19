@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameObject heart2;
     public GameObject heart3;
 	public float speed;
+    public GameObject gameOver;
 
 
 	public float warpBaseDist;
@@ -217,7 +218,7 @@ public class PlayerController : MonoBehaviour
 
 	void Die()
 	{
-
+        gameOver.SetActive(true);
 	}
 
 	IEnumerator invincibility()
