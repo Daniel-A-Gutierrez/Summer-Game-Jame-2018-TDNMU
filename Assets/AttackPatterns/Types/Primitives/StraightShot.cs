@@ -21,10 +21,10 @@ public class StraightShot : AttackPattern
         callback();
 
         float endTime = Time.time + LifeTime;
-        while (Time.time < endTime)
+        while (Time.time < endTime && g.activeInHierarchy)
         {
-            g.transform.position += Speed * g.transform.up * Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            g.transform.position += Speed * g.transform.up * Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
         }
 
         pool.ReturnBullet(g);

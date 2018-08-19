@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Name: Test Sequence
   m_EditorClassIdentifier: 
   Patterns:
+  - pattern: {fileID: 11400000, guid: 80039c7fa13244445be832e91abd8d11, type: 2}
+    delay: 0
   - pattern: {fileID: 11400000, guid: 3adbb69268aac7e4cae3970c61fb66f7, type: 2}
     delay: 1
+  - pattern: {fileID: 11400000, guid: 80039c7fa13244445be832e91abd8d11, type: 2}
+    delay: 0
   - pattern: {fileID: 11400000, guid: c8472b2e6aab5d044a22603294493428, type: 2}
     delay: 0.5

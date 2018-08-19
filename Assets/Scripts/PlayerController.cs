@@ -189,10 +189,9 @@ public class PlayerController : MonoBehaviour
 			 print(layerName);	 
 	 		if (layerName == "EnemyBullets")
 	 		{
-				
-			 
 	 			TakeDamage();
-	 			Destroy(col.gameObject);
+                col.gameObject.SetActive(false);
+//	 			Destroy(col.gameObject);
 	 			return;
 	 		}		
 		 }
