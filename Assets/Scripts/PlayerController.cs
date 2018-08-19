@@ -34,7 +34,10 @@ public class PlayerController : MonoBehaviour
 	GameObject mainCamera;
 	Camera cam;
 
-	public float firePeriod;
+	public GameObject smallProjectile;
+	public GameObject largeProjectile;
+	public float bulletSpawnDistance;
+	public float fireCooldown;
 	public int damage;
 	public int maxChargeDamage;
 	public float fireMaxChargeTime;
@@ -44,7 +47,8 @@ public class PlayerController : MonoBehaviour
 	bool fire2;//chargeshot
 	float continuousFireRemainingCooldown;
 	float chargeShotCharge;
-	
+	bool recoiling;
+	bool cancelledPreviousFrame;
 
 	//-----------------------------------------------------------------------------------------------
 
@@ -67,6 +71,14 @@ public class PlayerController : MonoBehaviour
 		warpRemainingCoolDown = 0;
 		warpCharge = 0;
 		warpChargeTime = 0;
+
+		cancelledPreviousFrame = false ;
+		recoiling = false;
+		chargeShotCharge = 0;
+		continuousFireRemainingCooldown = 0;
+		fire1= false;
+		fire2 = false;
+
 	}
 	
 	// Update is called once per frame
@@ -75,16 +87,12 @@ public class PlayerController : MonoBehaviour
 		mousePosition = cam.ScreenToWorldPoint(   Input.mousePosition );
 		setMoveDirection();
 		setShootDirection();
-		canMove = !ChargeWarp();
+		canMove = !ChargeWarp(recoiling); // you cant charge your warp while recoiling
+		HandleShooting();
 		if(isWarping){canMove = false;}
 		if (canMove) // player cant move while charging.
 		{
 			transform.position +=  moveDirection*speed*(Time.fixedDeltaTime);
-			if(fire2)
-			{
-
-			}
-			
 		}
 	}
 
@@ -107,8 +115,12 @@ public class PlayerController : MonoBehaviour
 	//warp max charge increments by maxcharge/maxchargetime*chargeTime then stops incrementing
 	//on key release, warp method is called, OnCoolDown is set True and Remaining Cooldown is set to cooldown
 	//cooldown decrements until it hits zero, when warpOnCooldown is set to false and it stops decrementing
-	bool ChargeWarp() //returns true if player is charging
+	bool ChargeWarp(bool falsify = false) //returns true if player is charging
 	{
+		if(falsify)
+		{
+			return false;
+		}
 		if(warpOnCoolDown)
 		{
 			warpRemainingCoolDown -= Time.deltaTime;
@@ -119,12 +131,7 @@ public class PlayerController : MonoBehaviour
 		{
 			if(isCharging & Input.GetKeyDown(cancelWarp))
 			{
-				isCharging = false;
-				warpChargeTime = 0;
-				warpOnCoolDown = true;
-				warpRemainingCoolDown = warpCoolDown;
-				warpCharge = 0 ;
-				return false;
+				return CancelWarp();
 			}
 
 			if(isCharging & Input.GetKeyUp(warpKey) ) 
@@ -146,6 +153,16 @@ public class PlayerController : MonoBehaviour
 			}
 			return false;
 		}
+	}
+
+	bool CancelWarp()
+	{
+		isCharging = false;
+		warpChargeTime = 0;
+		warpOnCoolDown = true;
+		warpRemainingCoolDown = warpCoolDown;
+		warpCharge = 0 ;
+		return false;
 	}
 
 	void Warp()
@@ -199,21 +216,21 @@ public class PlayerController : MonoBehaviour
 		moveDirection= moveVector;
 	}
 
-	void setShootDirection()
+	void setShootDirection() //also checks (per frame) whether shooting should be done or not
 	{
 		if(CONTROLLER_ENABLED)
 		{
 			Vector2 shootVector =  new Vector2(DeadZone(Input.GetAxis("ShootX")),
 				DeadZone(Input.GetAxisRaw("ShootY"))).normalized;
 			shootDirection = shootVector;
-			if(shootDirection.magnitude>0){fire1 = true;}
-			else {fire1=false;}
+			
 		}
 		else
 		{
 			Vector2 shootVector = new Vector2(mousePosition.x-transform.position.x,mousePosition.y -
 				 transform.position.y).normalized;
 			shootDirection = shootVector;
+			
 		}
 	}
 
@@ -228,20 +245,94 @@ public class PlayerController : MonoBehaviour
 	charging your shot, but only the charge shot, cancels warp. 
 	cannot shoot while charging warp 
 	*/
+	void HandleShooting() //MUST be called every frame
+	{
+		if(CONTROLLER_ENABLED)
+		{
+			if(Input.GetAxis("ChargeFire") > 0) {fire2 = true;fire1 = false;}
+			else if(shootDirection.magnitude>0){fire1 = true;}
+			else {fire1=false;fire2 = false;}
+		}
+		else
+		{
+			if(Input.GetAxis("ChargeFire") > 0) {fire2 = true;fire1 = false;}
+			else if(Input.GetAxis("ContinuousFire") > 0){fire1=true;}
+			else {fire1 = false;fire2 = false;}
+		}
+		if(!canMove){fire1 = false;fire2 = false;}
+		if(Input.GetKeyDown(KeyCode.Mouse1)){fire2=true;CancelWarp();}
+		if(isCharging & fire2) { CancelWarp() ;} // you can cancel your warp by charging the attack
+		if(isWarping & fire2) {fire2 = false;} // actually being in the warp doesnt let you charge
+		//print(fire2);
+		ContinuousFire();
+		ChargeAttack();
+	}
 	void ContinuousFire()
 	{
-
+		continuousFireRemainingCooldown -= Time.deltaTime;
+		if(continuousFireRemainingCooldown <=0 & fire1)
+		{
+			Fire(smallProjectile);
+			continuousFireRemainingCooldown = fireCooldown;
+		}
+		
 	}
 
 	void ChargeAttack()
 	{
+		//if(Input.GetKeyDown(warpKey)) {CancelChargeAttack();}
+		if(fire2)
+		{
+			if(chargeShotCharge<maxChargeDamage)
+			{
+				chargeShotCharge += Time.deltaTime/fireMaxChargeTime*maxChargeDamage;
+			}
+		}
+		if(chargeShotCharge > 0 & !fire2 & Input.GetAxis("ChargeFire")!= 0) //if its charged and you did something besides releasing it to cancel the shot
+		{
+			CancelChargeAttack();
+		}
+		if(chargeShotCharge>0 & !fire2  & Input.GetAxis("ChargeFire") < .01f)
+		{
+			chargeShotCharge =0 ;
+			FireChargeAttack();
+		}
+	}
 
+	void CancelChargeAttack()
+	{
+		fire2 = false;
+		chargeShotCharge = 0;
+		canMove= false;
 	}
 
 	void FireChargeAttack()
 	{
-
+		Fire(largeProjectile);
+		StartCoroutine(Recoil());
 	}
 	
+	void Fire(GameObject projectile)
+	{
+		Transform g;
+
+		GameObject bullet=GameObject.Instantiate(projectile,
+		new Vector3(transform.position.x + shootDirection.x*bulletSpawnDistance,transform.position.y + shootDirection.y*bulletSpawnDistance,0),
+		Quaternion.identity);
+		bullet.transform.up = shootDirection;
+		/*
+		 */
+	}
+
+	IEnumerator Recoil()
+	{
+		float start = Time.time;
+		recoiling = true;
+		while(Time.time-start < chargeShotRecoilTime)
+		{
+			yield return null;
+		}
+		recoiling = false;
+	}
 
 }
