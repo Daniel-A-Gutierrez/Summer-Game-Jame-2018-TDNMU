@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour {
 
-    //General Boss Stuff
-    public int health = 100;
+    //General Boss Variables
+    private int health = 1000;
 
     //Boss Movement
     public int movementPattern;
@@ -34,13 +34,13 @@ public class BossController : MonoBehaviour {
 	void Update () {    
         if(movementStarted && transform.position != movementLocation.transform.position)
         {
-            //if movement has started but the boss hasn't reached the location, move towards it
+            //If movement has started but the boss hasn't reached the location, move towards it
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, movementLocation.transform.position, step);
         }
         else if(movementStarted && transform.position == movementLocation.transform.position)
         {
-            //if movement has started and the boss has reached the location
+            //If movement has started and the boss has reached the location
             //stop all movement, randomize next movement, randomize attack, begin cooldown
             movementStarted = false;
             RandomizeMovement();
@@ -54,18 +54,21 @@ public class BossController : MonoBehaviour {
 
     void RandomizeMovementInterval()
     {
+        //Randomizes the amount of time to wait for the boss to move again
         movementCooldownTime = Random.Range(movementIntervalMin, movementIntervalMax);
         cooldownOver = false;
     }
 
     void RandomizeMovement()
     {
+        //Randomizes the location the boss will move to from the list of locations provided
         movementPattern = (int)Mathf.RoundToInt(Random.Range(0.0f, (float)(movementLocationList.Count-1)));
         RandomizeMovementInterval();
     }
 
     void RandomizeAttack()
     {
+        //Randomizes the attack pattern from a list of attack patterns
         Debug.Log("Blah");
         attackStarted = true;
         StartCoroutine("TempAttackPattern");
@@ -73,6 +76,7 @@ public class BossController : MonoBehaviour {
 
     public IEnumerator BeginBattle()
     {
+        //The kickoff coroutine for the Boss
         yield return new WaitForSeconds(3.0f);
         RandomizeMovement();
         StartCoroutine("moveOnCooldown");
@@ -80,6 +84,8 @@ public class BossController : MonoBehaviour {
 
     public IEnumerator moveOnCooldown()
     {
+        //This coroutine takes the location chosen from RandomMovement and the 
+        //cooldown from RandomMovementInterval and makes both happen
         movementLocation = movementLocationList[movementPattern];
         yield return new WaitForSeconds(movementCooldownTime);
         cooldownOver = true;
@@ -89,6 +95,7 @@ public class BossController : MonoBehaviour {
 
     public IEnumerator TempAttackPattern()
     {
+        //Temporary; delete when patterns arrive
         yield return new WaitForSeconds(2.0f);
         attackStarted = false;
         StartCoroutine("moveOnCooldown");
