@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
 
     //General Boss Variables
     public int health = 1000;
+    public Image healthBar;
 
     //Boss Movement
     public int movementPattern;
@@ -43,6 +45,7 @@ public class BossController : MonoBehaviour
     //Deals with actual movement and attack patterns while not moving
     void Update()
     {
+        healthBar.fillAmount = (float)(health / 1000);
         if (movementStarted && transform.position != movementLocation.transform.position)
         {
             //If movement has started but the boss hasn't reached the location, move towards it
