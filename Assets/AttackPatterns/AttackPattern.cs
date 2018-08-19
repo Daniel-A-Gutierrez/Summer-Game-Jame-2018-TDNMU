@@ -4,5 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class AttackPattern : ScriptableObject {
-    public abstract IEnumerator SequenceCoroutine(MonoBehaviour runner, Action callback);
+    public abstract IEnumerator SequenceCoroutine(MonoBehaviour runner, Action callback,
+        Vector3? positionOffset = null, Quaternion? rotationOffset = null);
 }

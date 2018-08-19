@@ -13,12 +13,12 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Borders
+  - EnemyBullets
+  - PlayerBullets
+  - Enemy
+  - Player
+  - EnemyIndestructibles
   - 
   - 
   - 
