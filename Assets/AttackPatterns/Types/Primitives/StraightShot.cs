@@ -16,14 +16,14 @@ public class StraightShot : AttackPattern
         GameObject g = pool.GetBullet();
         Vector3 actualPositionOffset = positionOffset ?? new Vector3();
         actualPositionOffset = runner.transform.rotation * actualPositionOffset;
-        g.transform.position = runner.transform.position + actualPositionOffset; 
+        g.transform.position = runner.transform.position + actualPositionOffset;
         g.transform.rotation = runner.transform.rotation;
         callback();
 
         float endTime = Time.time + LifeTime;
-        while(Time.time < endTime)
+        while (Time.time < endTime)
         {
-            g.transform.position += Speed * g.transform.forward * Time.deltaTime;
+            g.transform.position += Speed * g.transform.up * Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
 

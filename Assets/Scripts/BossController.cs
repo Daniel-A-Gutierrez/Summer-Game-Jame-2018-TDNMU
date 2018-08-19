@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossController : MonoBehaviour {
+public class BossController : MonoBehaviour
+{
 
     //General Boss Variables
     public int health = 1000;
@@ -22,29 +23,33 @@ public class BossController : MonoBehaviour {
     private GameObject movementLocation;
 
     //Boss Attacks
-    public int attackPattern;
+    [Expandable]
+    public AttackPattern[] attackPatterns;
+    public ShotRunner runner;
     public bool attackStarted;
     public bool attackOver;
 
     Rigidbody2D rb2d;
     float cameraSpeed;
-	//Initializes movement,attack pattern, and movement cooldown randomly
-	void Start () {
+    //Initializes movement,attack pattern, and movement cooldown randomly
+    void Start()
+    {
         StartCoroutine("BeginBattle");
         rb2d = GetComponent<Rigidbody2D>();
         cameraSpeed = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ConsistentMovement>().speed;
-        rb2d.velocity = new Vector3(0,rb2d.velocity.y + cameraSpeed,0);
-	}
-	
+        rb2d.velocity = new Vector3(0, rb2d.velocity.y + cameraSpeed, 0);
+    }
+
     //Deals with actual movement and attack patterns while not moving
-	void Update () {    
-        if(movementStarted && transform.position != movementLocation.transform.position)
+    void Update()
+    {
+        if (movementStarted && transform.position != movementLocation.transform.position)
         {
             //If movement has started but the boss hasn't reached the location, move towards it
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, movementLocation.transform.position, step);
         }
-        else if(movementStarted && transform.position == movementLocation.transform.position)
+        else if (movementStarted && transform.position == movementLocation.transform.position)
         {
             //If movement has started and the boss has reached the location
             //stop all movement, randomize next movement, randomize attack, begin cooldown
@@ -52,11 +57,11 @@ public class BossController : MonoBehaviour {
             RandomizeMovement();
             RandomizeAttack();
         }
-        else if(attackStarted)
+        else if (attackStarted)
         {
             Debug.Log("Pew");
         }
-	}
+    }
 
     void RandomizeMovementInterval()
     {
@@ -68,16 +73,22 @@ public class BossController : MonoBehaviour {
     void RandomizeMovement()
     {
         //Randomizes the location the boss will move to from the list of locations provided
-        movementPattern = (int)Mathf.RoundToInt(Random.Range(0.0f, (float)(movementLocationList.Count-1)));
+        movementPattern = (int)Mathf.RoundToInt(Random.Range(0.0f, (float)(movementLocationList.Count - 1)));
         RandomizeMovementInterval();
     }
 
     void RandomizeAttack()
     {
         //Randomizes the attack pattern from a list of attack patterns
-        Debug.Log("Blah");
         attackStarted = true;
-        StartCoroutine("TempAttackPattern");
+        AttackPattern attackPattern = attackPatterns[Random.Range(0, attackPatterns.Length)];
+        StartCoroutine(attackPattern.SequenceCoroutine(runner, AttackPatternCallBack));
+    }
+
+    public void AttackPatternCallBack()
+    {
+        attackStarted = false;
+        StartCoroutine("moveOnCooldown");
     }
 
     public IEnumerator BeginBattle()
@@ -96,15 +107,7 @@ public class BossController : MonoBehaviour {
         yield return new WaitForSeconds(movementCooldownTime);
         cooldownOver = true;
         movementStarted = true;
-        
-    }
 
-    public IEnumerator TempAttackPattern()
-    {
-        //Temporary; delete when patterns arrive
-        yield return new WaitForSeconds(2.0f);
-        attackStarted = false;
-        StartCoroutine("moveOnCooldown");
     }
 
     void OnTriggerEnter2D(Collider2D col)

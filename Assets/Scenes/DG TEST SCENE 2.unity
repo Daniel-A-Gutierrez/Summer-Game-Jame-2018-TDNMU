@@ -150,7 +150,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4830377117820642, guid: c8a2720ca8a65524cbc5c1b1bf48d872, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8a2720ca8a65524cbc5c1b1bf48d872, type: 2}
@@ -200,7 +200,7 @@ Prefab:
     - target: {fileID: 224074661556695118, guid: c84d39c8ee9e9f54ba502245a32646a1,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 224074661556695118, guid: c84d39c8ee9e9f54ba502245a32646a1,
         type: 2}
@@ -292,21 +292,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4576545854458370, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
       propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 58865798605240924, guid: 271538c85115d5948b18108b0dc22cd1,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1995132498216044, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 58865798605240924, guid: 271538c85115d5948b18108b0dc22cd1,
-        type: 2}
-      propertyPath: m_Radius
-      value: 0.37
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
@@ -364,7 +354,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4293946312105518, guid: ce46b1387824de6498745118fd82d44d, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce46b1387824de6498745118fd82d44d, type: 2}
@@ -406,25 +396,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4576545854458370, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
       propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 58865798605240924, guid: 271538c85115d5948b18108b0dc22cd1,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1995132498216044, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
-      propertyPath: m_Layer
       value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 58865798605240924, guid: 271538c85115d5948b18108b0dc22cd1,
-        type: 2}
-      propertyPath: m_Radius
-      value: 0.37
       objectReference: {fileID: 0}
     - target: {fileID: 1995132498216044, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
       propertyPath: m_Name
       value: BossBullet (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1995132498216044, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
@@ -466,29 +446,59 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4576545854458370, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
       propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 58865798605240924, guid: 271538c85115d5948b18108b0dc22cd1,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1995132498216044, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 58865798605240924, guid: 271538c85115d5948b18108b0dc22cd1,
-        type: 2}
-      propertyPath: m_Radius
-      value: 0.37
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1995132498216044, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
       propertyPath: m_Name
       value: BossBullet (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1995132498216044, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1335465413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1335465414}
+  - component: {fileID: 1335465415}
+  m_Layer: 11
+  m_Name: ShotRunner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1335465414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1335465413}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1885064168}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1335465415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1335465413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc63919d3c008c44f8f75b9dd9579767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1369788641
 Prefab:
   m_ObjectHideFlags: 0
@@ -526,7 +536,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4763841858573940, guid: f0b357b01f05b9641b4dc4d49dcb92c1, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0b357b01f05b9641b4dc4d49dcb92c1, type: 2}
@@ -568,7 +578,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4028550954372934, guid: 0b41de5eec6f75c45836bc5d2381a43f, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b41de5eec6f75c45836bc5d2381a43f, type: 2}
@@ -610,25 +620,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4576545854458370, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
       propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 58865798605240924, guid: 271538c85115d5948b18108b0dc22cd1,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1995132498216044, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 58865798605240924, guid: 271538c85115d5948b18108b0dc22cd1,
-        type: 2}
-      propertyPath: m_Radius
-      value: 0.37
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1995132498216044, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
       propertyPath: m_Name
       value: BossBullet (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1995132498216044, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
@@ -640,6 +640,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114198211381952828, guid: bb9831f3594c6dd4daedf9ed3bb844fe,
+        type: 2}
+      propertyPath: attackPatterns.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4534256074393074, guid: bb9831f3594c6dd4daedf9ed3bb844fe, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -670,8 +675,74 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4534256074393074, guid: bb9831f3594c6dd4daedf9ed3bb844fe, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114198211381952828, guid: bb9831f3594c6dd4daedf9ed3bb844fe,
+        type: 2}
+      propertyPath: attackPattern
+      value: 
+      objectReference: {fileID: 11400000, guid: 6200d13cb437ab14ea9149aa17f17985,
+        type: 2}
+    - target: {fileID: 114198211381952828, guid: bb9831f3594c6dd4daedf9ed3bb844fe,
+        type: 2}
+      propertyPath: runner
+      value: 
+      objectReference: {fileID: 1335465415}
+    - target: {fileID: 114198211381952828, guid: bb9831f3594c6dd4daedf9ed3bb844fe,
+        type: 2}
+      propertyPath: attackPatterns.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6200d13cb437ab14ea9149aa17f17985,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb9831f3594c6dd4daedf9ed3bb844fe, type: 2}
   m_IsPrefabAsset: 0
+--- !u!4 &1885064168 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4029703474889282, guid: bb9831f3594c6dd4daedf9ed3bb844fe,
+    type: 2}
+  m_PrefabInternal: {fileID: 1638994497}
+--- !u!1 &2127238799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2127238801}
+  - component: {fileID: 2127238800}
+  m_Layer: 0
+  m_Name: BossBulletPooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2127238800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2127238799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c565e2d70c4524945a264bc477c63e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  poolType: {fileID: 11400000, guid: fe9b38ad24b3d9d439af146755d9c331, type: 2}
+  amountToPool: 50
+  shouldExpand: 0
+--- !u!4 &2127238801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2127238799}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
