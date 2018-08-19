@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DragonBones;
 public class PlayerController : MonoBehaviour
 {
 	public bool CONTROLLER_ENABLED;
@@ -66,11 +66,12 @@ public class PlayerController : MonoBehaviour
 	bool invincible = false;
 	bool intangible = false;
 
-	//-----------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------
 
 
-	// Use this for initialization
-	void Start ()
+
+    // Use this for initialization
+    void Start ()
 	{
 		HP = MAXHP;
 		mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -95,9 +96,10 @@ public class PlayerController : MonoBehaviour
 		continuousFireRemainingCooldown = 0;
 		fire1= false;
 		fire2 = false;
-		isChargingGun = false; 
+		isChargingGun = false;
 
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -167,19 +169,18 @@ public class PlayerController : MonoBehaviour
 		else{canMove = true;}
 		if (canMove) // player cant move while charging.
 		{
-			transform.position +=  moveDirection*speed*(Time.fixedDeltaTime);
+           
+        
+
+
+            if (GetComponent<UnityArmatureComponent>().animation.isPlaying == false)
+            GetComponent<UnityArmatureComponent>().animation.Play("Forward_4FPS",0);
+
+          
+            transform.position +=  moveDirection*speed*(Time.fixedDeltaTime);
 		}
 	}
 
-	void LateUpdate()
-	{
-
-	}
-
-	void FixedUpdate()
-	{
-		
-	}
 
 	void OnTriggerEnter2D(Collider2D col)//bullets should be triggers
 	{
@@ -282,16 +283,22 @@ public class PlayerController : MonoBehaviour
 	//cooldown decrements until it hits zero, when warpOnCooldown is set to false and it stops decrementing
 
 	void StartChargingWarp()
-	{
-		if(warpRemainingCoolDown <= 0)
+    {
+        if (warpRemainingCoolDown <= 0)
 		{
-			isChargingWarp = true;
+            AnimationConfig stuff;
+            stuff = GetComponent<UnityArmatureComponent>().animation.animationConfig;
+
+             GetComponent<UnityArmatureComponent>().animation.Play("Dash", 1);
+
+            isChargingWarp = true;
 			KeepChargingWarp();
 		}
 	}
 
 	void KeepChargingWarp() //returns true if player is charging
 	{
+     
 		warpCharge +=  Time.deltaTime/warpMaxChargeTime*warpMaxCharge;
 		if(warpCharge > warpMaxCharge) {warpCharge = warpMaxCharge;}
 		
@@ -299,19 +306,22 @@ public class PlayerController : MonoBehaviour
 
 	void CancelChargingWarp()
 	{
+        GetComponent<UnityArmatureComponent>().animation.GotoAndPlayByFrame("Dash",12,1);
 		isChargingWarp = false;
 		warpChargeTime = 0;
 		warpRemainingCoolDown = warpCoolDown;
 		warpCharge = 0 ;
 		isWarping = false;
-	}
+   
+    }
 
 	void Warp()
-	{
-		Vector3 target = transform.position + moveDirection * (1+warpCharge)*warpBaseDist;
+    {
+  
+        Vector3 target = transform.position + moveDirection * (1+warpCharge)*warpBaseDist;
 		StartCoroutine(WarpCoroutine(target));
-		
-	}
+       
+    }
 
 	IEnumerator WarpCoroutine(Vector3 target)
 	{
@@ -346,8 +356,9 @@ public class PlayerController : MonoBehaviour
 	cannot shoot while charging warp 
 	*/
 	void StartChargingShot()
-	{
-		isChargingGun = true;
+    {
+        GetComponent<UnityArmatureComponent>().animation.GotoAndStopByFrame("Charge", 9);
+        isChargingGun = true;
 		KeepChargingAttack();
 	}
 
@@ -359,7 +370,9 @@ public class PlayerController : MonoBehaviour
 
 	void KeepChargingAttack()
 	{
-		if(chargeShotCharge < maxChargeDamage) 
+   
+    
+        if (chargeShotCharge < maxChargeDamage) 
 		{
 			chargeShotCharge += Time.deltaTime/fireMaxChargeTime*maxChargeDamage;
 		}
@@ -373,7 +386,9 @@ public class PlayerController : MonoBehaviour
 
 	void FireChargeAttack()
 	{
-		Transform g;
+        GetComponent<UnityArmatureComponent>().animation.GotoAndPlayByFrame("Charge",9,1);
+
+        UnityEngine.Transform g;
 		GameObject bullet=GameObject.Instantiate(largeProjectile,
 		new Vector3(transform.position.x + shootDirection.x*bulletSpawnDistance,transform.position.y + shootDirection.y*bulletSpawnDistance,0),
 		Quaternion.identity);
@@ -398,7 +413,7 @@ public class PlayerController : MonoBehaviour
 	
 	void FireSmall()
 	{
-		Transform g;
+		UnityEngine.Transform g;
 		GameObject bullet=GameObject.Instantiate(smallProjectile,
 		new Vector3(transform.position.x + shootDirection.x*bulletSpawnDistance,transform.position.y + shootDirection.y*bulletSpawnDistance,0),
 		Quaternion.identity);
@@ -441,10 +456,13 @@ public class PlayerController : MonoBehaviour
 
 	void setMoveDirection()
 	{
+        
 		Vector2 moveVector =  new Vector2(DeadZone(Input.GetAxis("Horizontal")),
 			DeadZone(Input.GetAxisRaw("Vertical"))).normalized;
 		moveDirection= moveVector;
-	}
+   
+   
+    }
 
 	void setShootDirection() //also checks (per frame) whether shooting should be done or not
 	{
@@ -462,7 +480,11 @@ public class PlayerController : MonoBehaviour
 			shootDirection = shootVector;
 			
 		}
-	}
+        var angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+
+    }
 
 
 }
