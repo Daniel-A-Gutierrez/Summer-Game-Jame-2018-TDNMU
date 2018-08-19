@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Audio;
+﻿using UnityEngine.Audio;
 using UnityEngine;
-
+using System;
 public class AudioManager : MonoBehaviour {
 
 	public Sound[] sounds;
@@ -17,13 +15,16 @@ public class AudioManager : MonoBehaviour {
 			s.source.pitch = s.pitch;
 		}
 	}
-
+	//thanks brackeys
 	public void Play(string name)
 	{
 		Sound s = Array.Find(sounds,sounds => sounds.name == name);
+		s.source.Play();
+
 	}
-	void Start () {
-		
+	void Start ()
+	{
+	
 	}
 	
 	// Update is called once per frame

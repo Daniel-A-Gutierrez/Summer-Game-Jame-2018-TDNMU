@@ -2,14 +2,14 @@
 using UnityEngine.Audio;
 
 [System.Serializable]
-public class Sound : MonoBehaviour {
+public class Sound  {
 
 	public AudioClip clip;
 	public string name;
 	[Range(0f,1f)]
-	public float volume;
-	[Range(.1f,8f)]
-	public float pitch;
+	public float volume = 1f;
+	[Range( .1f, 1f)]
+	public float pitch = 1f;
 
 	[HideInInspector]
 	public AudioSource source;
