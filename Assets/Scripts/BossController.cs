@@ -45,7 +45,7 @@ public class BossController : MonoBehaviour
     //Deals with actual movement and attack patterns while not moving
     void Update()
     {
-        healthBar.fillAmount = (float)health / 1000.0f;
+        healthBar.fillAmount = (float)(health / 1000);
         if (movementStarted && transform.position != movementLocation.transform.position)
         {
             //If movement has started but the boss hasn't reached the location, move towards it
