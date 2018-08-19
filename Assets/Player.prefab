@@ -62,7 +62,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &61400403619431908
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -110,14 +110,14 @@ MonoBehaviour:
   joystickDeadZone: 0.09
   warpKey: 32
   cancelWarp: 113
-  smallProjectile: {fileID: 1094987542289470, guid: 17f6fe13b02f2c548ab4d4138e0b500f,
+  smallProjectile: {fileID: 1431114805064104, guid: bc00e22d283130b45b3bc0b517ba56e1,
     type: 2}
-  largeProjectile: {fileID: 1203002014608968, guid: a89c3c5761e0d974e97e8659be99c14c,
+  largeProjectile: {fileID: 1876471074781678, guid: d92932b6a8c983846b58b42e3266150f,
     type: 2}
   bulletSpawnDistance: 0.64
-  fireCooldown: 0.001
-  damage: 5
-  maxChargeDamage: 25
+  fireCooldown: 0.1
+  damage: 2
+  maxChargeDamage: 10
   fireMaxChargeTime: 3
   chargeShotRecoilTime: 0.7
   chargeshootJoystickButton: 344

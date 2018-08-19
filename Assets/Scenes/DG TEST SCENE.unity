@@ -235,6 +235,12 @@ Prefab:
       value: 
       objectReference: {fileID: 1431114805064104, guid: bc00e22d283130b45b3bc0b517ba56e1,
         type: 2}
+    - target: {fileID: 114976604359275468, guid: 0b41de5eec6f75c45836bc5d2381a43f,
+        type: 2}
+      propertyPath: largeProjectile
+      value: 
+      objectReference: {fileID: 1876471074781678, guid: d92932b6a8c983846b58b42e3266150f,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b41de5eec6f75c45836bc5d2381a43f, type: 2}
   m_IsPrefabAsset: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 public class go : MonoBehaviour {
 	public float speed;
 	public float timeout;
+	public int damage;
 	float start;
 	// Use this for initialization
 	void Start ()

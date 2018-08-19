@@ -14,7 +14,8 @@ public class ConsistentMovement : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
         rb.velocity = new Vector3(0.0f, speed, 0.0f);
 	}
 }

@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour
 	public float invincibilityTime;
 
 	bool invincible = false;
+	bool intangible = false;
+
 	//-----------------------------------------------------------------------------------------------
 
 
@@ -76,6 +78,8 @@ public class PlayerController : MonoBehaviour
 		setShootDirection();
 		mousePosition = new Vector3(0,0,0);
 
+		intangible = false;
+		invincible = false;
 		
 		warpOnCoolDown = false;
 		isChargingWarp = false;
@@ -174,9 +178,37 @@ public class PlayerController : MonoBehaviour
 		
 	}
 
+	void OnTriggerEnter2D(Collider2D col)//bullets should be triggers
+	{
+		if( !intangible & !invincible )
+	 	{
+	 		string layerName = LayerMask.LayerToName(col.gameObject.layer);
+			 print(layerName);	 
+	 		if (layerName == "EnemyBullets")
+	 		{
+				
+			 
+	 			TakeDamage();
+	 			Destroy(col.gameObject);
+	 			return;
+	 		}		
+		 }
+	}
+	void OnCollisionEnter2D(Collision2D col)
+	{
+	 	if( !intangible)
+	 	{
+	 		string layerName = LayerMask.LayerToName(col.gameObject.layer);
+	 		if(layerName == "Enemy" | layerName == "EnemyIndestructibles")
+	 		{
+	 			TakeDamage();
+	 		}
+	 	}
+	 }
+
 	void TakeDamage()
 	{
-		if(!invincible) {HP -= 1;}
+		if(!invincible) {HP -= 1;StartCoroutine("invincibility");}
 		if(HP == 0) {Die();}
 	}
 
@@ -184,14 +216,44 @@ public class PlayerController : MonoBehaviour
 	{
 
 	}
+
 	IEnumerator invincibility()
 	{
 		invincible = true;
 		float start = Time.time;
+		float blinkTimer = invincibilityTime/7;
+		float blinkCooldown = 0;
+		SpriteRenderer sr = gameObject.GetComponent<SpriteRenderer>();
+		Color color = sr.color;
+		Color originalColor = sr.color;
+		color.a = .35f;
+		
 		while(Time.time - start < invincibilityTime)
 		{
+			if(blinkCooldown <= .01f)
+				{
+				if(sr.color.a == originalColor.a)
+				{
+
+					sr.color = color;
+					print(color);
+
+					blinkCooldown = blinkTimer;
+				}
+				else
+				{
+					sr.color =originalColor;
+					print(originalColor);
+
+					blinkCooldown=blinkTimer;
+				} 
+			}
+
+				blinkCooldown -= Time.deltaTime;
+			
 			yield return null;
 		}
+		sr.color = originalColor;
 		invincible = false; 
 	}
 
@@ -242,6 +304,7 @@ public class PlayerController : MonoBehaviour
 		float warpDistance = Vector3.Distance(transform.position, target);
 		float start = Time.time;
 		isWarping = true;
+		intangible = true;
 		while(Vector3.Distance(transform.position, target) > .1f)
 		{
 			float elapsed = Time.time - start;
@@ -250,6 +313,7 @@ public class PlayerController : MonoBehaviour
 			transform.position = startingPosition*(1-progress) + target*progress;
 			yield return null;
 		}
+		intangible = false;
 		CancelChargingWarp();
 	}
 
@@ -300,6 +364,7 @@ public class PlayerController : MonoBehaviour
 		Quaternion.identity);
 		bullet.transform.up = shootDirection;
 		bullet.GetComponent<go>().speed *= 1 + chargeShotCharge;
+		bullet.GetComponent<go>().damage = (int)chargeShotCharge;
 		StartCoroutine(Recoil());
 		CancelChargingGun();
 		//change the damage too

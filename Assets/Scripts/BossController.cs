@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossController : MonoBehaviour {
 
     //General Boss Variables
-    private int health = 1000;
+    public int health = 1000;
 
     //Boss Movement
     public int movementPattern;
@@ -16,6 +16,7 @@ public class BossController : MonoBehaviour {
     public float movementIntervalMax;
     public float speed;
 
+
     //Boss Movement Patterns
     public List<GameObject> movementLocationList;
     private GameObject movementLocation;
@@ -25,9 +26,14 @@ public class BossController : MonoBehaviour {
     public bool attackStarted;
     public bool attackOver;
 
+    Rigidbody2D rb2d;
+    float cameraSpeed;
 	//Initializes movement,attack pattern, and movement cooldown randomly
 	void Start () {
         StartCoroutine("BeginBattle");
+        rb2d = GetComponent<Rigidbody2D>();
+        cameraSpeed = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ConsistentMovement>().speed;
+        rb2d.velocity = new Vector3(0,rb2d.velocity.y + cameraSpeed,0);
 	}
 	
     //Deals with actual movement and attack patterns while not moving
@@ -99,5 +105,20 @@ public class BossController : MonoBehaviour {
         yield return new WaitForSeconds(2.0f);
         attackStarted = false;
         StartCoroutine("moveOnCooldown");
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.layer == LayerMask.NameToLayer("PlayerBullets"))//10 is player bullets
+        {
+            takeDamage(col.gameObject.GetComponent<go>().damage);
+            Destroy(col.gameObject);
+        }
+    }
+
+    void takeDamage(int damage)
+    {
+        health -= damage;
+        //THATS ALOTA DAMAGE
     }
 }
