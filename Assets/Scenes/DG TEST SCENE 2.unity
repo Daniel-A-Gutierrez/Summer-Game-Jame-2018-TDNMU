@@ -570,30 +570,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 212305082287143996, guid: 0b41de5eec6f75c45836bc5d2381a43f,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 66
-      objectReference: {fileID: 0}
-    - target: {fileID: 50276876862351332, guid: 0b41de5eec6f75c45836bc5d2381a43f,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 61400403619431908, guid: 0b41de5eec6f75c45836bc5d2381a43f,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114976604359275468, guid: 0b41de5eec6f75c45836bc5d2381a43f,
-        type: 2}
-      propertyPath: damagePlayer.m_Bits
-      value: 2560
-      objectReference: {fileID: 0}
-    - target: {fileID: 1800670121448952, guid: 0b41de5eec6f75c45836bc5d2381a43f, type: 2}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b41de5eec6f75c45836bc5d2381a43f, type: 2}
   m_IsPrefabAsset: 0
