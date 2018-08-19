@@ -82,7 +82,7 @@ public class ButtonManager : MonoBehaviour
 
     public void quitToMenu()
     {
-        SceneManager.LoadScene("Main Menu");
+        Application.Quit();
     }
 
     public void restart()
