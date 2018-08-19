@@ -657,9 +657,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementPattern: 0
-  movementIntervalMin: 3
-  movementIntervalMax: 6
-  speed: 3
+  movementIntervalMin: 0
+  movementIntervalMax: 4
+  speed: 7
   movementLocationList:
   - {fileID: 1695924236}
   - {fileID: 215559969}

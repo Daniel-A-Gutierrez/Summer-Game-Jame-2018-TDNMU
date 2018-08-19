@@ -9,6 +9,7 @@ public class ConsistentMovement : MonoBehaviour {
 
     void Start()
     {
+        Application.targetFrameRate = 60;
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
