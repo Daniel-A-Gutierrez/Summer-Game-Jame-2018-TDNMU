@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
 	public bool CONTROLLER_ENABLED;
 	public int MAXHP;
 	int HP;
+    public GameObject heart1;
+    public GameObject heart2;
+    public GameObject heart3;
 	public float speed;
 
 
@@ -219,6 +222,18 @@ public class PlayerController : MonoBehaviour
 
 	IEnumerator invincibility()
 	{
+        if(HP == 2)
+        {
+            heart3.SetActive(false);
+        }
+        else if(HP == 1)
+        {
+            heart2.SetActive(false);
+        }
+        else if(HP == 0)
+        {
+            heart1.SetActive(false);
+        }
 		invincible = true;
 		float start = Time.time;
 		float blinkTimer = invincibilityTime/7;
