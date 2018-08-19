@@ -37,3 +37,4 @@ sysinfo.txt
 
 # Ignore undo files
 *.un~
+ProjectSettings/ProjectVersion.txt

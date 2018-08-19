@@ -115,10 +115,10 @@ MonoBehaviour:
   largeProjectile: {fileID: 1876471074781678, guid: d92932b6a8c983846b58b42e3266150f,
     type: 2}
   bulletSpawnDistance: 0.64
-  fireCooldown: 0.1
-  damage: 2
-  maxChargeDamage: 10
-  fireMaxChargeTime: 3
+  fireCooldown: 0.12
+  damage: 4
+  maxChargeDamage: 20
+  fireMaxChargeTime: 2.25
   chargeShotRecoilTime: 0.7
   chargeshootJoystickButton: 344
   chargeshootMouseButton: 324
