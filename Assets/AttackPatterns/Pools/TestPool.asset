@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 0
@@ -11,4 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41add04c62502354b8338274d5252b00, type: 3}
   m_Name: TestPool
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1377312169612078, guid: 84f42ec4f3ff92e488887af87890c749, type: 2}
+  bullet: {fileID: 1995132498216044, guid: 271538c85115d5948b18108b0dc22cd1, type: 2}
+  pool: {fileID: 0}

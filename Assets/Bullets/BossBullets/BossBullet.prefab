@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23814808619937470}
   - component: {fileID: 58865798605240924}
   - component: {fileID: 50459268875660454}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BossBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1995132498216044}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.50829834, y: 0.67384833, z: -0.123046875}
+  m_LocalPosition: {x: -2.98, y: 0.67384833, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -114,9 +114,9 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.37
