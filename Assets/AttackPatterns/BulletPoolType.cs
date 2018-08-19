@@ -3,34 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Attack Pattern/Pool")]
-public class BulletPoolType : ScriptableObject {
-    [SerializeField]
-    private GameObject bullet;
-//    [SerializeField]
-//    private List<GameObject> pool;
-//    [SerializeField]
-//    private int initialCapacity = 50;
+public class BulletPoolType : ScriptableObject
+{
+    public GameObject bullet;
+    public ObjectPooler pool = null;
 
     public GameObject GetBullet()
     {
+        if (pool)
+        {
+            GameObject g = pool.GetPooledObject();
+            g.SetActive(true);
+            return g;
+        }
         return Instantiate(bullet);
     }
 
     public void ReturnBullet(GameObject bullet)
     {
+        if (pool)
+        {
+            bullet.SetActive(false);
+            return;
+        }
         Destroy(bullet);
     }
-    /*
-    private void Awake()
+
+    public void Attach(ObjectPooler pool)
     {
-        pool = new List<GameObject>();
-        for (int i = 0; i < initialCapacity; i++)
-        {
-            GameObject obj = (GameObject)Instantiate(bullet);
-            obj.SetActive(false);
-            pool.Add(obj);
-        }
+        this.pool = pool;
     }
-    */
+
+    public void Detach()
+    {
+        pool = null;
+    }
 }
 

@@ -11,6 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa2a4e313056d444abd455d5ccdc54a, type: 3}
   m_Name: Test Rotate
   m_EditorClassIdentifier: 
-  Angle: 20
-  Speed: 4
-  Sensitivity: 0.1
+  Angle: 60
+  Speed: 140
