@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 	public bool CONTROLLER_ENABLED;
+	public int MAXHP;
+	int HP;
 	public float speed;
 
 
@@ -19,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
 
 	bool warpOnCoolDown;
-	bool isCharging;
+	bool isChargingWarp;
 	float warpRemainingCoolDown;
 	float warpCharge;
 	float warpChargeTime;
@@ -42,7 +44,13 @@ public class PlayerController : MonoBehaviour
 	public int maxChargeDamage;
 	public float fireMaxChargeTime;
 	public float chargeShotRecoilTime;
+	public KeyCode chargeshootJoystickButton;
+	public KeyCode chargeshootMouseButton;
+	public KeyCode shootMouseButton;
+	public float recoilImpact;
+	public float maxRecoilMultiplier;
 
+	bool isChargingGun ;
 	bool fire1;//repeating shot
 	bool fire2;//chargeshot
 	float continuousFireRemainingCooldown;
@@ -50,13 +58,16 @@ public class PlayerController : MonoBehaviour
 	bool recoiling;
 	bool cancelledPreviousFrame;
 
+	public float invincibilityTime;
+
+	bool invincible = false;
 	//-----------------------------------------------------------------------------------------------
 
 
 	// Use this for initialization
 	void Start ()
 	{
-		
+		HP = MAXHP;
 		mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 		cam = mainCamera.GetComponent<Camera>();
 		canMove = true;
@@ -67,29 +78,86 @@ public class PlayerController : MonoBehaviour
 
 		
 		warpOnCoolDown = false;
-		isCharging = false;
+		isChargingWarp = false;
 		warpRemainingCoolDown = 0;
 		warpCharge = 0;
 		warpChargeTime = 0;
 
-		cancelledPreviousFrame = false ;
 		recoiling = false;
 		chargeShotCharge = 0;
 		continuousFireRemainingCooldown = 0;
 		fire1= false;
 		fire2 = false;
+		isChargingGun = false; 
 
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+		continuousFireRemainingCooldown -= Time.deltaTime;
 		mousePosition = cam.ScreenToWorldPoint(   Input.mousePosition );
 		setMoveDirection();
 		setShootDirection();
-		canMove = !ChargeWarp(recoiling); // you cant charge your warp while recoiling
-		HandleShooting();
-		if(isWarping){canMove = false;}
+
+		warpRemainingCoolDown -= Time.deltaTime;
+		//override
+		if(!isWarping)
+		{
+			if(isChargingGun)
+			{
+				if(Input.GetKeyDown(warpKey) && warpRemainingCoolDown <= 0)
+				{
+					CancelChargingGun();
+					StartChargingWarp();
+				}
+				else
+				{
+					if(Input.GetKeyUp(chargeshootJoystickButton) | Input.GetKeyUp(chargeshootMouseButton))
+					{
+						FireChargeAttack();
+					}
+					else if(Input.GetKey(chargeshootJoystickButton) | Input.GetKey(chargeshootMouseButton))
+					{
+						KeepChargingAttack();
+					}
+				}
+			}
+			else if(isChargingWarp)
+			{
+				if(Input.GetKeyDown(chargeshootJoystickButton) | Input.GetKeyDown(chargeshootMouseButton) & !recoiling)
+				{
+					CancelChargingWarp();
+					StartChargingShot();
+				}
+				else
+				{
+					if(Input.GetKeyUp(warpKey))
+					{
+						Warp();
+					}
+					else if(Input.GetKey(warpKey))
+					{
+						KeepChargingWarp();
+					}
+				}
+					
+			}
+			else if(Input.GetKeyDown(warpKey) )
+			{
+				StartChargingWarp();
+			}
+			else if(Input.GetKeyDown(chargeshootJoystickButton) | Input.GetKeyDown(chargeshootMouseButton) & !recoiling)
+			{
+				StartChargingShot();
+			}
+			else
+			{
+				ContinuousFire();
+			}
+		}
+		if(isWarping|isChargingWarp){canMove = false;}
+		else{canMove = true;}
 		if (canMove) // player cant move while charging.
 		{
 			transform.position +=  moveDirection*speed*(Time.fixedDeltaTime);
@@ -106,6 +174,26 @@ public class PlayerController : MonoBehaviour
 		
 	}
 
+	void TakeDamage()
+	{
+		if(!invincible) {HP -= 1;}
+		if(HP == 0) {Die();}
+	}
+
+	void Die()
+	{
+
+	}
+	IEnumerator invincibility()
+	{
+		invincible = true;
+		float start = Time.time;
+		while(Time.time - start < invincibilityTime)
+		{
+			yield return null;
+		}
+		invincible = false; 
+	}
 
 	//---------------------------------------------------------------------
 
@@ -115,65 +203,37 @@ public class PlayerController : MonoBehaviour
 	//warp max charge increments by maxcharge/maxchargetime*chargeTime then stops incrementing
 	//on key release, warp method is called, OnCoolDown is set True and Remaining Cooldown is set to cooldown
 	//cooldown decrements until it hits zero, when warpOnCooldown is set to false and it stops decrementing
-	bool ChargeWarp(bool falsify = false) //returns true if player is charging
+
+	void StartChargingWarp()
 	{
-		if(falsify)
+		if(warpRemainingCoolDown <= 0)
 		{
-			return false;
-		}
-		if(warpOnCoolDown)
-		{
-			warpRemainingCoolDown -= Time.deltaTime;
-			if (warpRemainingCoolDown < 0)  {warpOnCoolDown = false;}
-			return false;
-		}
-		else
-		{
-			if(isCharging & Input.GetKeyDown(cancelWarp))
-			{
-				return CancelWarp();
-			}
-
-			if(isCharging & Input.GetKeyUp(warpKey) ) 
-			{
-				Warp();
-				return true; //player cant move their position with warp during the same frame they move normally
-			}
-
-			if (Input.GetKey(warpKey) & ! isCharging)
-			{
-				isCharging = true;
-			}
-
-			if(Input.GetKey(warpKey) & isCharging)
-			{
-				warpCharge +=  Time.deltaTime/warpMaxChargeTime*warpMaxCharge;
-				if(warpCharge > warpMaxCharge) {warpCharge = warpMaxCharge;}
-				return true;
-			}
-			return false;
+			isChargingWarp = true;
+			KeepChargingWarp();
 		}
 	}
 
-	bool CancelWarp()
+	void KeepChargingWarp() //returns true if player is charging
 	{
-		isCharging = false;
+		warpCharge +=  Time.deltaTime/warpMaxChargeTime*warpMaxCharge;
+		if(warpCharge > warpMaxCharge) {warpCharge = warpMaxCharge;}
+		
+	}
+
+	void CancelChargingWarp()
+	{
+		isChargingWarp = false;
 		warpChargeTime = 0;
-		warpOnCoolDown = true;
 		warpRemainingCoolDown = warpCoolDown;
 		warpCharge = 0 ;
-		return false;
+		isWarping = false;
 	}
 
 	void Warp()
 	{
 		Vector3 target = transform.position + moveDirection * (1+warpCharge)*warpBaseDist;
 		StartCoroutine(WarpCoroutine(target));
-		isCharging = false;
-		warpChargeTime = 0;
-		warpOnCoolDown = true;
-		warpCharge = 0;
-		warpRemainingCoolDown = warpCoolDown;
+		
 	}
 
 	IEnumerator WarpCoroutine(Vector3 target)
@@ -190,8 +250,98 @@ public class PlayerController : MonoBehaviour
 			transform.position = startingPosition*(1-progress) + target*progress;
 			yield return null;
 		}
-		isWarping = false;
+		CancelChargingWarp();
 	}
+
+
+
+
+	//------------------------------------------------------------------------------------
+	/*
+	shooting on keyboard : leftclick to shoot, mouse position to aim, right click to charge shot
+	shooting on controller : aim to shoot, rb to chargeshot
+	you can only shoot while you can move
+
+	charging your warp cancels shooting
+	charging your shot, but only the charge shot, cancels warp. 
+	cannot shoot while charging warp 
+	*/
+	void StartChargingShot()
+	{
+		isChargingGun = true;
+		KeepChargingAttack();
+	}
+
+	void CancelChargingGun()
+	{
+		isChargingGun = false;
+		chargeShotCharge = 0;
+	}
+
+	void KeepChargingAttack()
+	{
+		if(chargeShotCharge < maxChargeDamage) 
+		{
+			chargeShotCharge += Time.deltaTime/fireMaxChargeTime*maxChargeDamage;
+		}
+		else
+		{
+			chargeShotCharge = maxChargeDamage;
+		}
+
+	}
+
+
+	void FireChargeAttack()
+	{
+		Transform g;
+		GameObject bullet=GameObject.Instantiate(largeProjectile,
+		new Vector3(transform.position.x + shootDirection.x*bulletSpawnDistance,transform.position.y + shootDirection.y*bulletSpawnDistance,0),
+		Quaternion.identity);
+		bullet.transform.up = shootDirection;
+		bullet.GetComponent<go>().speed *= 1 + chargeShotCharge;
+		StartCoroutine(Recoil());
+		CancelChargingGun();
+		//change the damage too
+		
+	}
+
+	void ContinuousFire()
+	{
+		if(continuousFireRemainingCooldown <=0 & Input.GetKey(shootMouseButton))
+		{
+			FireSmall();
+			continuousFireRemainingCooldown = fireCooldown;
+		}
+		
+	}
+	
+	void FireSmall()
+	{
+		Transform g;
+		GameObject bullet=GameObject.Instantiate(smallProjectile,
+		new Vector3(transform.position.x + shootDirection.x*bulletSpawnDistance,transform.position.y + shootDirection.y*bulletSpawnDistance,0),
+		Quaternion.identity);
+		bullet.transform.up = shootDirection;
+
+	}
+
+
+	IEnumerator Recoil()
+	{
+		float start = Time.time;
+		recoiling = true;
+		float chargeMulti = chargeShotCharge/maxChargeDamage * maxRecoilMultiplier;
+		//Vector3 targetPos = transform.position - new Vector3(shootDirection.x,shootDirection.y,0);
+		while(Time.time-start < chargeShotRecoilTime)
+		{
+			float d = 1f - (Time.time-start)/chargeShotRecoilTime;
+			transform.position -= new Vector3(shootDirection.x,shootDirection.y,0)*d*Time.deltaTime*recoilImpact*chargeMulti;
+			yield return null;
+		}
+		recoiling = false;
+	}
+
 
 
 //-----------------------------------------------------------------------------------
@@ -234,105 +384,5 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-
-	//------------------------------------------------------------------------------------
-	/*
-	shooting on keyboard : leftclick to shoot, mouse position to aim, right click to charge shot
-	shooting on controller : aim to shoot, rb to chargeshot
-	you can only shoot while you can move
-
-	charging your warp cancels shooting
-	charging your shot, but only the charge shot, cancels warp. 
-	cannot shoot while charging warp 
-	*/
-	void HandleShooting() //MUST be called every frame
-	{
-		if(CONTROLLER_ENABLED)
-		{
-			if(Input.GetAxis("ChargeFire") > 0) {fire2 = true;fire1 = false;}
-			else if(shootDirection.magnitude>0){fire1 = true;}
-			else {fire1=false;fire2 = false;}
-		}
-		else
-		{
-			if(Input.GetAxis("ChargeFire") > 0) {fire2 = true;fire1 = false;}
-			else if(Input.GetAxis("ContinuousFire") > 0){fire1=true;}
-			else {fire1 = false;fire2 = false;}
-		}
-		if(!canMove){fire1 = false;fire2 = false;}
-		if(Input.GetKeyDown(KeyCode.Mouse1)){fire2=true;CancelWarp();}
-		if(isCharging & fire2) { CancelWarp() ;} // you can cancel your warp by charging the attack
-		if(isWarping & fire2) {fire2 = false;} // actually being in the warp doesnt let you charge
-		//print(fire2);
-		ContinuousFire();
-		ChargeAttack();
-	}
-	void ContinuousFire()
-	{
-		continuousFireRemainingCooldown -= Time.deltaTime;
-		if(continuousFireRemainingCooldown <=0 & fire1)
-		{
-			Fire(smallProjectile);
-			continuousFireRemainingCooldown = fireCooldown;
-		}
-		
-	}
-
-	void ChargeAttack()
-	{
-		//if(Input.GetKeyDown(warpKey)) {CancelChargeAttack();}
-		if(fire2)
-		{
-			if(chargeShotCharge<maxChargeDamage)
-			{
-				chargeShotCharge += Time.deltaTime/fireMaxChargeTime*maxChargeDamage;
-			}
-		}
-		if(chargeShotCharge > 0 & !fire2 & Input.GetAxis("ChargeFire")!= 0) //if its charged and you did something besides releasing it to cancel the shot
-		{
-			CancelChargeAttack();
-		}
-		if(chargeShotCharge>0 & !fire2  & Input.GetAxis("ChargeFire") < .01f)
-		{
-			chargeShotCharge =0 ;
-			FireChargeAttack();
-		}
-	}
-
-	void CancelChargeAttack()
-	{
-		fire2 = false;
-		chargeShotCharge = 0;
-		canMove= false;
-	}
-
-	void FireChargeAttack()
-	{
-		Fire(largeProjectile);
-		StartCoroutine(Recoil());
-	}
-	
-	void Fire(GameObject projectile)
-	{
-		Transform g;
-
-		GameObject bullet=GameObject.Instantiate(projectile,
-		new Vector3(transform.position.x + shootDirection.x*bulletSpawnDistance,transform.position.y + shootDirection.y*bulletSpawnDistance,0),
-		Quaternion.identity);
-		bullet.transform.up = shootDirection;
-		/*
-		 */
-	}
-
-	IEnumerator Recoil()
-	{
-		float start = Time.time;
-		recoiling = true;
-		while(Time.time-start < chargeShotRecoilTime)
-		{
-			yield return null;
-		}
-		recoiling = false;
-	}
 
 }
