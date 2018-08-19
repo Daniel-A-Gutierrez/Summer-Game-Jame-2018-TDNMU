@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using DragonBones;
 public class BossController : MonoBehaviour
 {
 
@@ -45,7 +45,7 @@ public class BossController : MonoBehaviour
     //Deals with actual movement and attack patterns while not moving
     void Update()
     {
-        healthBar.fillAmount = (float)(health / 1000);
+        //healthBar.fillAmount = (float)(health / 1000);
         if (movementStarted && transform.position != movementLocation.transform.position)
         {
             //If movement has started but the boss hasn't reached the location, move towards it
@@ -63,6 +63,7 @@ public class BossController : MonoBehaviour
         else if (attackStarted)
         {
             Debug.Log("Pew");
+          
         }
     }
 
@@ -84,6 +85,7 @@ public class BossController : MonoBehaviour
     {
         //Randomizes the attack pattern from a list of attack patterns
         attackStarted = true;
+        GetComponent<UnityArmatureComponent>().animation.Play("Attack", 1);
         AttackPattern attackPattern = attackPatterns[Random.Range(0, attackPatterns.Length)];
         StartCoroutine(attackPattern.SequenceCoroutine(runner, AttackPatternCallBack));
     }
@@ -91,6 +93,7 @@ public class BossController : MonoBehaviour
     public void AttackPatternCallBack()
     {
         attackStarted = false;
+        GetComponent<UnityArmatureComponent>().animation.Play("Idle", 0);
         StartCoroutine("moveOnCooldown");
     }
 
