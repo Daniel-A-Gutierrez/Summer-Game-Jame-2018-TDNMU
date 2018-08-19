@@ -212,6 +212,7 @@ public class PlayerController : MonoBehaviour
 
 	void TakeDamage()
 	{
+     
 		if(!invincible) {HP -= 1;StartCoroutine("invincibility");}
 		if(HP == 0) {Die();}
 	}
@@ -236,42 +237,27 @@ public class PlayerController : MonoBehaviour
             heart1.SetActive(false);
         }
 		invincible = true;
-		float start = Time.time;
+        GetComponent<UnityArmatureComponent>().animation.Play("Hit", 0);
+        float start = Time.time;
 		float blinkTimer = invincibilityTime/7;
 		float blinkCooldown = 0;
-		SpriteRenderer sr = gameObject.GetComponent<SpriteRenderer>();
-		Color color = sr.color;
-		Color originalColor = sr.color;
-		color.a = .35f;
+
 		
 		while(Time.time - start < invincibilityTime)
 		{
-			if(blinkCooldown <= .01f)
-				{
-				if(sr.color.a == originalColor.a)
-				{
 
-					sr.color = color;
-					print(color);
+//            Debug.Log("Counting");
 
-					blinkCooldown = blinkTimer;
-				}
-				else
-				{
-					sr.color =originalColor;
-					print(originalColor);
-
-					blinkCooldown=blinkTimer;
-				} 
-			}
-
+              
+    
 				blinkCooldown -= Time.deltaTime;
 			
 			yield return null;
 		}
-		sr.color = originalColor;
-		invincible = false; 
-	}
+
+		invincible = false;
+        GetComponent<UnityArmatureComponent>().animation.Play("Forward_4FPS", 0);
+    }
 
 	//---------------------------------------------------------------------
 
