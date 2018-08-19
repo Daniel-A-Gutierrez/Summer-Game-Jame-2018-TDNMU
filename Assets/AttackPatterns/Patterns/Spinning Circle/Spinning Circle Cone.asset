@@ -8,9 +8,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b27735331ad332b47bb9e7a7e65f32a6, type: 3}
-  m_Name: Test Spread Repeat
+  m_Script: {fileID: 11500000, guid: ba7c89e3e83003f4bac1eb2c609b1268, type: 3}
+  m_Name: Spinning Circle Cone
   m_EditorClassIdentifier: 
-  Pattern: {fileID: 11400000, guid: afb5545e30664b745912a5cbffc09a99, type: 2}
-  RepeatCount: 4
-  Delay: 0.1
+  Pattern: {fileID: 11400000, guid: b9226b696e3bc334db297a7ec5dbca1c, type: 2}
+  RepeatCount: 15
+  Angle: 360

@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba7c89e3e83003f4bac1eb2c609b1268, type: 3}
+  m_Name: Test Circle
+  m_EditorClassIdentifier: 
+  Pattern: {fileID: 11400000, guid: 2aac57c8f8c9bfa408a9da8dd8c5a7e8, type: 2}
+  RepeatCount: 90
+  Angle: 90

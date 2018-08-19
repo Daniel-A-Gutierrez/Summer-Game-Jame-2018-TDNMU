@@ -240,7 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pooledObjects: []
   poolType: {fileID: 11400000, guid: fe9b38ad24b3d9d439af146755d9c331, type: 2}
-  amountToPool: 50
+  amountToPool: 1000
   shouldExpand: 1
 --- !u!1 &269799146
 GameObject:
@@ -279,11 +279,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4224950686679700, guid: 906302cf54087b941be9c7f316677fb4, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.01
+      value: 5.44
       objectReference: {fileID: 0}
     - target: {fileID: 4224950686679700, guid: 906302cf54087b941be9c7f316677fb4, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.72
+      value: -2.63
       objectReference: {fileID: 0}
     - target: {fileID: 4224950686679700, guid: 906302cf54087b941be9c7f316677fb4, type: 2}
       propertyPath: m_LocalPosition.z
@@ -604,7 +604,7 @@ Transform:
   m_PrefabInternal: {fileID: 575737658}
   m_GameObject: {fileID: 1974910406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: -3.72, z: 0}
+  m_LocalPosition: {x: 5.44, y: -2.63, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

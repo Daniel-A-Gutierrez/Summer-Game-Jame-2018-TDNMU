@@ -8,9 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b27735331ad332b47bb9e7a7e65f32a6, type: 3}
-  m_Name: Test Sequence Repeat
+  m_Script: {fileID: 11500000, guid: 9aa2a4e313056d444abd455d5ccdc54a, type: 3}
+  m_Name: Test Rotate
   m_EditorClassIdentifier: 
-  Pattern: {fileID: 11400000, guid: 467fd0f66ae46e549b78dccdf802f93b, type: 2}
-  RepeatCount: 5
-  Delay: 0
+  Angle: 60

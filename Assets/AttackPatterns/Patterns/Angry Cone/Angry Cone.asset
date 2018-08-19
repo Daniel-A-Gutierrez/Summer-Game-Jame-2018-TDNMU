@@ -8,7 +8,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00c97be3e25342743bf8a23e557cc9a5, type: 3}
-  m_Name: RotateToPlayer
+  m_Script: {fileID: 11500000, guid: ba7c89e3e83003f4bac1eb2c609b1268, type: 3}
+  m_Name: Angry Cone
   m_EditorClassIdentifier: 
-  Speed: 0
+  Pattern: {fileID: 11400000, guid: afcbcdf8dd37ad64d836ebcee9f85ca5, type: 2}
+  RepeatCount: 6
+  Angle: 180
