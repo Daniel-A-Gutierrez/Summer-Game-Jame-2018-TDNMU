@@ -1,19 +1,11 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: c3566554143c91349ba5c145f691bc88
-TextureImporter:
-  fileIDToRecycleName: {}
-  externalObjects: {}
-  serializedVersion: 7
-=======
-guid: 48824fc3fb8fd5348a675b21adf12303
-timeCreated: 1534622540
+guid: 880404a9f24659849942be57b9777977
+timeCreated: 1534617315
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
   serializedVersion: 4
->>>>>>> master
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -31,11 +23,6 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
-<<<<<<< HEAD
-  streamingMipmaps: 0
-  streamingMipmapsPriority: 0
-=======
->>>>>>> master
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -46,11 +33,7 @@ TextureImporter:
     serializedVersion: 2
     filterMode: -1
     aniso: -1
-<<<<<<< HEAD
-    mipBias: -100
-=======
     mipBias: -1
->>>>>>> master
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -62,33 +45,18 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-<<<<<<< HEAD
-  spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
-=======
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
->>>>>>> master
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
-<<<<<<< HEAD
-  singleChannelComponent: 0
-=======
->>>>>>> master
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
   platformSettings:
-<<<<<<< HEAD
-  - serializedVersion: 2
-    buildTarget: DefaultTexturePlatform
-=======
   - buildTarget: DefaultTexturePlatform
->>>>>>> master
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -97,28 +65,13 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-<<<<<<< HEAD
     androidETC2FallbackOverride: 0
-=======
->>>>>>> master
   spriteSheet:
     serializedVersion: 2
     sprites: []
     outline: []
     physicsShape: []
-<<<<<<< HEAD
-    bones: []
-    spriteID: 4d3199e4dee79bd468f9bc94fef0a466
-    vertices: []
-    indices: 
-    edges: []
-    weights: []
   spritePackingTag: 
-  pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
-=======
-  spritePackingTag: 
->>>>>>> master
   userData: 
   assetBundleName: 
   assetBundleVariant: 
