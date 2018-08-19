@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DragonBones;
+using UnityEngine.SceneManagement;
+
 public class BossController : MonoBehaviour
 {
 
     //General Boss Variables
     public int health = 1000;
     public Image healthBar;
+    public bool deathStarted;
 
     //Boss Movement
     public int movementPattern;
@@ -45,7 +48,12 @@ public class BossController : MonoBehaviour
     //Deals with actual movement and attack patterns while not moving
     void Update()
     {
-        //healthBar.fillAmount = (float)(health / 1000);
+        healthBar.fillAmount = (float)health / 1000.0f;
+        if(health == 0 && !deathStarted)
+        {
+            deathStarted = true;
+            StartCoroutine("death");
+        }
         if (movementStarted && transform.position != movementLocation.transform.position)
         {
             //If movement has started but the boss hasn't reached the location, move towards it
@@ -129,5 +137,11 @@ public class BossController : MonoBehaviour
     {
         health -= damage;
         //THATS ALOTA DAMAGE
+    }
+
+    IEnumerator death()
+    {
+        yield return new WaitForSeconds(10.0f);
+        SceneManager.LoadScene("Credits");
     }
 }
