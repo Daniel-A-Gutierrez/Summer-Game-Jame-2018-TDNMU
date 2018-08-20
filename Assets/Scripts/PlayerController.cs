@@ -315,6 +315,12 @@ public class PlayerController : MonoBehaviour
 		//AM.Stop("StartChargingWarp");
 		AM.Play("WarpSound");
         Vector3 target = transform.position + moveDirection * (1+warpCharge)*warpBaseDist;
+		RaycastHit2D hit ;
+		hit = Physics2D.Raycast(new Vector2(transform.position.x + moveDirection.x, transform.position.y + moveDirection.y), moveDirection,warpBaseDist*(1+warpCharge) );
+		if(hit)
+		{
+			target = hit.point - new Vector2(moveDirection.x,moveDirection.y);
+		}
 		StartCoroutine(WarpCoroutine(target));
        
     }
