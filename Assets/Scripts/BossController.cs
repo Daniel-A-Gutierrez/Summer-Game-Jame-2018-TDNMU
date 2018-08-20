@@ -33,6 +33,7 @@ public class BossController : MonoBehaviour
     public ShotRunner runner;
     public bool attackStarted;
     public bool attackOver;
+    public BulletPoolType pool;
 
     Rigidbody2D rb2d;
     float cameraSpeed;
@@ -45,35 +46,39 @@ public class BossController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         cameraSpeed = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ConsistentMovement>().speed;
         rb2d.velocity = new Vector3(0, rb2d.velocity.y + cameraSpeed, 0);
+        pool.disable = false;
     }
 
     //Deals with actual movement and attack patterns while not moving
     void Update()
     {
-        healthBar.fillAmount = (float)health / 1000.0f;
-        if(health == 0 && !deathStarted)
+        if (!deathStarted)
         {
-            deathStarted = true;
-            StartCoroutine("death");
-        }
-        if (movementStarted && transform.position != movementLocation.transform.position)
-        {
-            //If movement has started but the boss hasn't reached the location, move towards it
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, movementLocation.transform.position, step);
-        }
-        else if (movementStarted && transform.position == movementLocation.transform.position)
-        {
-            //If movement has started and the boss has reached the location
-            //stop all movement, randomize next movement, randomize attack, begin cooldown
-            movementStarted = false;
-            RandomizeMovement();
-            RandomizeAttack();
-        }
-        else if (attackStarted)
-        {
-            Debug.Log("Pew");
-          
+            healthBar.fillAmount = (float)health / 1000.0f;
+            if (health == 0)
+            {
+                deathStarted = true;
+                pool.disable = true;
+                StartCoroutine("death");
+            }
+            if (movementStarted && transform.position != movementLocation.transform.position)
+            {
+                //If movement has started but the boss hasn't reached the location, move towards it
+                float step = speed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, movementLocation.transform.position, step);
+            }
+            else if (movementStarted && transform.position == movementLocation.transform.position)
+            {
+                //If movement has started and the boss has reached the location
+                //stop all movement, randomize next movement, randomize attack, begin cooldown
+                movementStarted = false;
+                RandomizeMovement();
+                RandomizeAttack();
+            }
+            else if (attackStarted)
+            {
+                Debug.Log("Pew");
+            }
         }
     }
 
@@ -103,7 +108,8 @@ public class BossController : MonoBehaviour
     public void AttackPatternCallBack()
     {
         attackStarted = false;
-        GetComponent<UnityArmatureComponent>().animation.Play("Idle", 0);
+        if (!deathStarted)
+            GetComponent<UnityArmatureComponent>().animation.Play("Idle", 0);
         StartCoroutine("moveOnCooldown");
     }
 
