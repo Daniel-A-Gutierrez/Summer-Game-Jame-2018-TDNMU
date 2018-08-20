@@ -10,7 +10,7 @@ public class Sound  {
 	public float volume = 1f;
 	[Range( .1f, 1f)]
 	public float pitch = 1f;
-
+	public bool loop = false;
 	[HideInInspector]
 	public AudioSource source;
 	// Use this for initialization
