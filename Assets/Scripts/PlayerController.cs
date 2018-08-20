@@ -282,8 +282,8 @@ public class PlayerController : MonoBehaviour
 
              GetComponent<UnityArmatureComponent>().animation.Play("Dash", 1);
 
-            isChargingWarp = true;
-			KeepChargingWarp();
+            //isChargingWarp = true;
+			Warp();
 		}
 	}
 
