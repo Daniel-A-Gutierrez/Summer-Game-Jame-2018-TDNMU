@@ -955,11 +955,11 @@ MonoBehaviour:
   heart3: {fileID: 463279189}
   speed: 4
   gameOver: {fileID: 810563615}
-  warpBaseDist: 3
+  warpBaseDist: 4
   warpMaxChargeTime: 2
   warpMaxCharge: 2
   warpCoolDown: 0.25
-  warpTime: 0.14
+  warpTime: 0.1
   joystickDeadZone: 0.09
   warpKey: 32
   cancelWarp: 113
@@ -7205,9 +7205,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1392780852}
-  m_LocalRotation: {x: 0.3215453, y: -0.94689417, z: -0.000000014055192, w: 0.00000004139006}
-  m_LocalPosition: {x: -0.062136304, y: -0.4963561, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.32154527, w: 0.9468942}
+  m_LocalPosition: {x: 0.062136613, y: -0.49635607, z: 0}
+  m_LocalScale: {x: 1.0000001, y: 0.9999999, z: 1}
   m_Children: []
   m_Father: {fileID: 542152907}
   m_RootOrder: 0
