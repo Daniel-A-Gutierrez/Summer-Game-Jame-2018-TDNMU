@@ -36,9 +36,11 @@ public class BossController : MonoBehaviour
 
     Rigidbody2D rb2d;
     float cameraSpeed;
+    AudioManager AM;
     //Initializes movement,attack pattern, and movement cooldown randomly
     void Start()
     {
+        AM = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
         StartCoroutine("BeginBattle");
         rb2d = GetComponent<Rigidbody2D>();
         cameraSpeed = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ConsistentMovement>().speed;
@@ -135,6 +137,7 @@ public class BossController : MonoBehaviour
 
     void takeDamage(int damage)
     {
+        AM.Play("Boss Take Damage");
         health -= damage;
         //THATS ALOTA DAMAGE
     }

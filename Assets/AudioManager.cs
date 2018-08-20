@@ -20,15 +20,22 @@ public class AudioManager : MonoBehaviour {
 	{
 		Sound s = Array.Find(sounds,sounds => sounds.name == name);
 		s.source.Play();
-
 	}
+
+	public void Stop(string name)
+	{
+		Sound s = Array.Find(sounds,sounds => sounds.name == name);
+		s.source.Stop();
+	}
+
 	void Start ()
 	{
 	
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		
 	}
 }

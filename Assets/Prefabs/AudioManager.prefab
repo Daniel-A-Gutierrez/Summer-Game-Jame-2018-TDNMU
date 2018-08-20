@@ -54,51 +54,66 @@ MonoBehaviour:
   sounds:
   - clip: {fileID: 8300000, guid: 73bacdb6754b1584099a0945d02c3311, type: 3}
     name: Boss Take Damage
-    volume: 1
+    volume: 0.005
     pitch: 1
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: c5fafc66c731c744f892fc659ce991eb, type: 3}
-    name: 
-    volume: 1
+    name: ContinuousFireShot
+    volume: 0.02
     pitch: 1
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: a64a025eb40cc9f4db485bd07eb5cc56, type: 3}
-    name: 
+    name: ContinuousFireShot2
     volume: 1
     pitch: 1
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: f1cf7dcbe8f24d8459d96f4a965496ab, type: 3}
-    name: 
+    name: Explosion
     volume: 1
     pitch: 1
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: 881044b58c31b514b8a5d171faefd7ca, type: 3}
-    name: 
+    name: Explosion
     volume: 1
     pitch: 1
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: 73aa6133c02fec34a95a69a6195ef690, type: 3}
-    name: 
+    name: Explosion3
     volume: 1
     pitch: 1
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: f2d203d68138e2545a2115a96147a8c0, type: 3}
-    name: 
-    volume: 1
+    name: FireChargeShot
+    volume: 0.02
     pitch: 1
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: 6a5bf0f4481fb0b4384844e751f5d57c, type: 3}
-    name: 
-    volume: 1
+    name: PlayerTakeDamage
+    volume: 0.02
     pitch: 1
     source: {fileID: 0}
   - clip: {fileID: 8300000, guid: add48b5037631864696c860dedc246e0, type: 3}
-    name: 
+    name: WarpSound
+    volume: 0.02
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 9c48abb1ca5860540b3896a6fc6e667a, type: 3}
+    name: Charging2
+    volume: 0.02
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 5bb7f20c0a6b2824cb1adf2328d7e71a, type: 3}
+    name: EndChargeShot
+    volume: 0.02
+    pitch: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 2a42c5140b9724f48bad0132f7287f5b, type: 3}
+    name: EndChargeWarp
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  - clip: {fileID: 0}
-    name: 
-    volume: 1
+  - clip: {fileID: 8300000, guid: 392e1d59e78061f479072559dceab4d7, type: 3}
+    name: StartChargingWarp
+    volume: 0
     pitch: 1
     source: {fileID: 0}

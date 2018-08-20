@@ -67,6 +67,8 @@ public class PlayerController : MonoBehaviour
 	bool invincible = false;
 	bool intangible = false;
 
+	AudioManager AM ;
+
     //-----------------------------------------------------------------------------------------------
 
 
@@ -74,6 +76,7 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start ()
 	{
+		AM =GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
 		HP = MAXHP;
 		mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 		cam = mainCamera.GetComponent<Camera>();
@@ -212,8 +215,8 @@ public class PlayerController : MonoBehaviour
 
 	void TakeDamage()
 	{
-     
-		if(!invincible) {HP -= 1;StartCoroutine("invincibility");}
+		
+		if(!invincible) {HP -= 1;AM.Play("PlayerTakeDamage");StartCoroutine("invincibility");}
 		if(HP == 0) {Die();}
 	}
 
@@ -284,14 +287,18 @@ public class PlayerController : MonoBehaviour
 
 	void KeepChargingWarp() //returns true if player is charging
 	{
-     
+		
 		warpCharge +=  Time.deltaTime/warpMaxChargeTime*warpMaxCharge;
-		if(warpCharge > warpMaxCharge) {warpCharge = warpMaxCharge;}
+		if(warpCharge > warpMaxCharge) {
+			warpCharge = warpMaxCharge;
+			AM.Play("EndChargeWarp");
+			}
 		
 	}
 
 	void CancelChargingWarp()
 	{
+		AM.Stop("EndChargeWarp");
         GetComponent<UnityArmatureComponent>().animation.GotoAndPlayByFrame("Dash",12,1);
 		isChargingWarp = false;
 		warpChargeTime = 0;
@@ -303,7 +310,8 @@ public class PlayerController : MonoBehaviour
 
 	void Warp()
     {
-  
+		AM.Stop("StartChargingWarp");
+		AM.Play("WarpSound");
         Vector3 target = transform.position + moveDirection * (1+warpCharge)*warpBaseDist;
 		StartCoroutine(WarpCoroutine(target));
        
@@ -343,6 +351,7 @@ public class PlayerController : MonoBehaviour
 	*/
 	void StartChargingShot()
     {
+		AM.Play("Charging2");
         GetComponent<UnityArmatureComponent>().animation.GotoAndStopByFrame("Charge", 9);
         isChargingGun = true;
 		KeepChargingAttack();
@@ -372,6 +381,8 @@ public class PlayerController : MonoBehaviour
 
 	void FireChargeAttack()
 	{
+		AM.Stop("Charging2");
+		AM.Play("FireChargeShot");
         GetComponent<UnityArmatureComponent>().animation.GotoAndPlayByFrame("Charge",9,1);
 
         UnityEngine.Transform g;
@@ -399,6 +410,7 @@ public class PlayerController : MonoBehaviour
 	
 	void FireSmall()
 	{
+		AM.Play("ContinuousFireShot");
 		UnityEngine.Transform g;
 		GameObject bullet=GameObject.Instantiate(smallProjectile,
 		new Vector3(transform.position.x + shootDirection.x*bulletSpawnDistance,transform.position.y + shootDirection.y*bulletSpawnDistance,0),
