@@ -222,6 +222,7 @@ public class PlayerController : MonoBehaviour
 
 	void Die()
 	{
+		AM.Play("Game Over Track");
         gameOver.SetActive(true);
 	}
 
