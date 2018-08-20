@@ -7,9 +7,14 @@ public class BulletPoolType : ScriptableObject
 {
     public GameObject bullet;
     public ObjectPooler pool = null;
+    public bool disable = false;
 
     public GameObject GetBullet()
     {
+        if (disable)
+        {
+            return null;
+        }
         if (pool)
         {
             GameObject g = pool.GetPooledObject();

@@ -14,19 +14,22 @@ public class StraightShot : AttackPattern
         Vector3? positionOffset = default(Vector3?), Quaternion? rotationOffset = default(Quaternion?))
     {
         GameObject g = pool.GetBullet();
-        Vector3 actualPositionOffset = positionOffset ?? new Vector3();
-        actualPositionOffset = runner.transform.rotation * actualPositionOffset;
-        g.transform.position = runner.transform.position + actualPositionOffset;
-        g.transform.rotation = runner.transform.rotation;
-        callback();
-
-        float endTime = Time.time + LifeTime;
-        while (Time.time < endTime && g.activeInHierarchy)
+        if (g)
         {
-            g.transform.position += Speed * g.transform.up * Time.fixedDeltaTime;
-            yield return new WaitForFixedUpdate();
-        }
+            Vector3 actualPositionOffset = positionOffset ?? new Vector3();
+            actualPositionOffset = runner.transform.rotation * actualPositionOffset;
+            g.transform.position = runner.transform.position + actualPositionOffset;
+            g.transform.rotation = runner.transform.rotation;
+            callback();
 
-        pool.ReturnBullet(g);
+            float endTime = Time.time + LifeTime;
+            while (Time.time < endTime && g.activeInHierarchy)
+            {
+                g.transform.position += Speed * g.transform.up * Time.fixedDeltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+
+            pool.ReturnBullet(g);
+        }
     }
 }
