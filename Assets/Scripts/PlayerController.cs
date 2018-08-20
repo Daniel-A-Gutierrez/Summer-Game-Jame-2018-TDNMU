@@ -312,7 +312,7 @@ public class PlayerController : MonoBehaviour
 
 	void Warp()
     {
-		AM.Stop("StartChargingWarp");
+		//AM.Stop("StartChargingWarp");
 		AM.Play("WarpSound");
         Vector3 target = transform.position + moveDirection * (1+warpCharge)*warpBaseDist;
 		StartCoroutine(WarpCoroutine(target));
