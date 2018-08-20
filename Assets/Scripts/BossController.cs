@@ -144,6 +144,7 @@ public class BossController : MonoBehaviour
 
     IEnumerator death()
     {
+        GetComponent<UnityArmatureComponent>().animation.Play("Death", 1);
         yield return new WaitForSeconds(10.0f);
         SceneManager.LoadScene("Credits");
     }
