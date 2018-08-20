@@ -17,9 +17,12 @@ public class Parallax : MonoBehaviour
     private int upIndex;
     private float lastCameraY;
 
+    public AudioManager am;
+
     // Use this for initialization
     void Start()
     {
+        am = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
         player = GameObject.Find("QuinSpriteFinal_1");
         cameraTransform = Camera.main.transform;
         lastCameraY = cameraTransform.position.y;
@@ -30,6 +33,7 @@ public class Parallax : MonoBehaviour
         }
         downIndex = 0;
         upIndex = layers.Length - 1;
+        am.Play("Loop 2");
     }
 
     // Update is called once per frame
