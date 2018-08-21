@@ -337,6 +337,10 @@ public class PlayerController : MonoBehaviour
 		intangible = true;
 		while(Vector3.Distance(transform.position, target) > .1f)
 		{
+			if(Input.GetKeyUp(warpKey))
+			{
+				break;
+			}
 			float elapsed = Time.time - start;
 			if (elapsed > warpTime) { elapsed = warpTime;}
 			float progress = elapsed / warpTime ;
@@ -370,6 +374,8 @@ public class PlayerController : MonoBehaviour
 
 	void CancelChargingGun()
 	{
+		AM.Stop("Charging2");
+		//AM.Play("ContinuousFireShot2");
 		isChargingGun = false;
 		chargeShotCharge = 0;
 	}
@@ -377,7 +383,7 @@ public class PlayerController : MonoBehaviour
 	void KeepChargingAttack()
 	{
    
-    
+		
         if (chargeShotCharge < maxChargeDamage) 
 		{
 			chargeShotCharge += Time.deltaTime/fireMaxChargeTime*maxChargeDamage;
@@ -404,7 +410,9 @@ public class PlayerController : MonoBehaviour
 		bullet.GetComponent<go>().speed *= 1 + chargeShotCharge/4;
 		bullet.GetComponent<go>().damage = (int)chargeShotCharge;
 		StartCoroutine(Recoil());
-		CancelChargingGun();
+		isChargingGun = false;
+		chargeShotCharge = 0;
+		
 		//change the damage too
 		
 	}
