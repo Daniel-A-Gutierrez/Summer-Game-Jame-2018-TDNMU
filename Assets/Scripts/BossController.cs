@@ -77,7 +77,7 @@ public class BossController : MonoBehaviour
             }
             else if (attackStarted)
             {
-                Debug.Log("Pew");
+//                Debug.Log("Pew");
             }
         }
     }

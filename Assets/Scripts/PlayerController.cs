@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour
 		if( !intangible & !invincible )
 	 	{
 	 		string layerName = LayerMask.LayerToName(col.gameObject.layer);
-			 print(layerName);	 
+			// print(layerName);	 
 	 		if (layerName == "EnemyBullets")
 	 		{
 	 			TakeDamage();
@@ -319,7 +319,10 @@ public class PlayerController : MonoBehaviour
 		hit = Physics2D.Raycast(new Vector2(transform.position.x + moveDirection.x, transform.position.y + moveDirection.y), moveDirection,warpBaseDist*(1+warpCharge) );
 		if(hit)
 		{
-			target = hit.point - new Vector2(moveDirection.x,moveDirection.y);
+			if(   LayerMask.LayerToName(hit.transform.gameObject.layer) != "EnemyBullets")
+			{
+				target = hit.point - new Vector2(moveDirection.x,moveDirection.y);
+			}
 		}
 		StartCoroutine(WarpCoroutine(target));
        
