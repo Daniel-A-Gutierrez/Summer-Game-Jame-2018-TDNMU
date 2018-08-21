@@ -401,7 +401,7 @@ public class PlayerController : MonoBehaviour
 		new Vector3(transform.position.x + shootDirection.x*bulletSpawnDistance,transform.position.y + shootDirection.y*bulletSpawnDistance,0),
 		Quaternion.identity);
 		bullet.transform.up = shootDirection;
-		bullet.GetComponent<go>().speed *= 1 + chargeShotCharge;
+		bullet.GetComponent<go>().speed *= 1 + chargeShotCharge/4;
 		bullet.GetComponent<go>().damage = (int)chargeShotCharge;
 		StartCoroutine(Recoil());
 		CancelChargingGun();
