@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 1814486067}
   - component: {fileID: 1814486066}
   - component: {fileID: 1814486065}
+  - component: {fileID: 1814486068}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -190,3 +191,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1814486068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1814486064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b42966872707a45af4c9699651e547, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CONTROLLER_ENABLED: 0
+  MAXHP: 0
+  heart1: {fileID: 0}
+  heart2: {fileID: 0}
+  heart3: {fileID: 0}
+  speed: 0
+  gameOver: {fileID: 0}
+  warpBaseDist: 0
+  warpMaxChargeTime: 0
+  warpMaxChargeMultiplier: 0
+  warpCoolDown: 0
+  warpTime: 0
+  joystickDeadZone: 0
+  warpKey: 0
+  cancelWarp: 0
+  smallProjectile: {fileID: 0}
+  largeProjectile: {fileID: 0}
+  bulletSpawnDistance: 0
+  fireCooldown: 0
+  damage: 0
+  maxChargeDamage: 0
+  fireMaxChargeTime: 0
+  chargeShotRecoilTime: 0
+  chargeshootJoystickButton: 0
+  chargeshootMouseButton: 0
+  shootMouseButton: 0
+  recoilImpact: 0
+  maxRecoilMultiplier: 0
+  invincibilityTime: 0
