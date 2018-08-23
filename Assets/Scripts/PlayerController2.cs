@@ -126,7 +126,7 @@ public class PlayerController2 : MonoBehaviour
 	float Cooldown(float timer)
 	{
 		timer -= Time.deltaTime;
-		if(timer<0)
+		if(timer<=0)
 		{
 			timer = 0;
 		}
@@ -144,9 +144,10 @@ public class PlayerController2 : MonoBehaviour
 	{
 		setMoveDirection();
 		setShootDirection();
+		mousePosition = cam.ScreenToWorldPoint(   Input.mousePosition );
 		warpRemainingCoolDown = Cooldown(warpRemainingCoolDown);
 		continuousFireRemainingCooldown = Cooldown(continuousFireRemainingCooldown);
-		fireCooldown = Cooldown(fireCooldown);
+
 		states[nextState]();
 
 	}
@@ -159,11 +160,11 @@ public class PlayerController2 : MonoBehaviour
 		nextState  = "StartState";
 		Move();
 		ContinuousFire();
-		if(Input.GetKeyDown(warpKey) & warpCoolDown == 0)
+		if(Input.GetKeyDown(warpKey) & warpRemainingCoolDown == 0)
 		{
 			WarpingState();
 		}
-		if(Input.GetKeyDown(chargeshootMouseButton)&fireCooldown == 0)
+		if(Input.GetKeyDown(chargeshootMouseButton))// add cooldown
 		{
 			EnterChargingShotState();
 		}
@@ -222,7 +223,7 @@ public class PlayerController2 : MonoBehaviour
 		
 	}
 
-// frin any, to none. 
+// from any, to none. 
 	void DeadState()
 	{
 		invincible = true;
@@ -254,8 +255,9 @@ public class PlayerController2 : MonoBehaviour
 	{
 		if(continuousFireRemainingCooldown <=0 & Input.GetKey(shootMouseButton))
 		{
-			FireSmall();
 			continuousFireRemainingCooldown = fireCooldown;
+
+			FireSmall();
 		}
 		
 	}
@@ -388,7 +390,8 @@ public class PlayerController2 : MonoBehaviour
 			
 		}
         var angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		transform.right = -shootDirection;
 
 
     }
