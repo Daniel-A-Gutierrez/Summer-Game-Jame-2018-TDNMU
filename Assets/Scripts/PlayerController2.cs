@@ -110,11 +110,6 @@ public class PlayerController2 : MonoBehaviour
 		}
 	}
 
-	class StateManager()
-	{
-
-	}
-
 
 	void Start()
 	{
